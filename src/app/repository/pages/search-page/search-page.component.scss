@@ -1,0 +1,21 @@
+section {
+  width: 100%;
+  min-height: 75vh;
+}
+p,
+.filter-item {
+  cursor: pointer;
+}
+
+.filter-item img {
+  visibility: hidden;
+}
+
+.filter-item.active img {
+  visibility: visible;
+}
+
+.caret {
+  width: 12px;
+  margin: 8px 5px;
+}

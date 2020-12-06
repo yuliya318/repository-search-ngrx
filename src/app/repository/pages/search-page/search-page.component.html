@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <app-search (search)="getRepositoriesList($event)"></app-search>
+    <section class="p-5 row colored-block">
+        <div class="search-results col-md-8 offset-md-2 ">
+            <h3>Search results:</h3>
+            <hr>
+            <div class="filter d-flex mb-4" *ngIf="repositories$">
+                <span class="font-weight-bold mr-4">Sort by:</span>
+                <div 
+                  class="filter-item d-flex mr-3" 
+                  [class.active]="orderValue === 'name'" 
+                  (click)="setOrderValue('name')">
+                    <span>Name</span>
+                    <img class="caret" src="./assets/caret-down.svg" [hidden]="reverse">
+                    <img class="caret" src="./assets/caret-up.svg" [hidden]="!reverse">
+                </div>
+                <div 
+                  class="filter-item d-flex mr-3" 
+                  [class.active]="orderValue === 'updated_at'"
+                  (click)="setOrderValue('updated_at')">
+                    <span>Date</span>
+                    <img class="caret" src="./assets/caret-down.svg" [hidden]="!reverse">
+                    <img class="caret" src="./assets/caret-up.svg" [hidden]="reverse">
+                </div>
+            </div>
+            <ul class="results-list">
+                <app-repository-list-item 
+                    *ngFor="let repository of repositories$ | async | orderBy:orderValue:reverse; trackBy: trackByFn" 
+                    [repository]="repository"
+                ></app-repository-list-item>
+            </ul>
+
+        </div>
+    </section>
+
+</div>

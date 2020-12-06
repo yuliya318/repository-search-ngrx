@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <header class="header d-flex align-items-center pl-4 mb-5">
+    <app-github-logo></app-github-logo>
+    <h5 class="text-light mb-0 ml-3">GitHub repositories search</h5>
+  </header>
+  <section class="col-md-6 offset-md-3">
+    <div class="bread-crumbs mb-3">
+      <span [routerLink]="['/search']">> Back to the search</span>
+    </div>
+    <app-repository-card
+      [repository]="repository$ | async"
+    ></app-repository-card>
+  </section>
+</div>

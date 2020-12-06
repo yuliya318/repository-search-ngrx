@@ -1,0 +1,29 @@
+<div class="colored-block border rounded p-5">
+    <div class="row justify-content-around mb-3">
+        <div class="w-25">
+            <div class="avatar">
+                <ng-container *ngIf="repository.owner.avatar_url; else elseTemplate">
+                    <img class="avatar-img mb-1" [src]="repository.owner.avatar_url">
+                </ng-container>
+                <ng-template #elseTemplate>
+                    <img class="avatar-img mb-1" src="./assets/github.png">
+                </ng-template>
+
+                <p class="text-center">{{ repository.owner.login }}</p>
+            </div>
+        </div>
+        <div class="repo-info w-50">
+            <p class="repo-name font-weight-bold mb-1">{{ repository.name }}</p>
+            <p *ngIf="repository.description" class="mb-5">{{ repository.description }}</p>
+            <p class="row justify-content-between">
+                <span class="d-block lightgrey-text">Created: {{ repository.created_at | date }} </span>
+                <span class="d-block lightgrey-text">Last update: {{ repository.updated_at | date }}</span>
+            </p>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-success">
+            <a [href]="repository.html_url" target="_blanc">Watch on GitHub</a>
+        </button>
+    </div>
+</div>
