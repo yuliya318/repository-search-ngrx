@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { IAppState } from '../../../store/state/app.state';
-import { selectSelectedRepository } from '../../../store/selectors/repository.selector';
-import { GetRepository } from '../../../store/actions/repository.actions';
+import { Observable } from 'rxjs';
+import { IRepository } from 'src/app/shared/interfaces/repository.interface';
+// import { ActivatedRoute } from '@angular/router';
+// import { select, Store } from '@ngrx/store';
+// import { IAppState } from '../../../store/state/app.state';
+// import { selectSelectedRepository } from '../../store/selectors/repository.selector';
+// import { GetRepository } from '../../store/actions/repository.actions';
+import { repositorySelector } from '../../store/repository.selectors';
 
 @Component({
   selector: 'app-repository-page',
@@ -11,15 +15,18 @@ import { GetRepository } from '../../../store/actions/repository.actions';
   styleUrls: ['./repository-page.component.scss']
 })
 export class RepositoryPageComponent implements OnInit {
-  public repository$ = this._store.pipe(select(selectSelectedRepository));
+  public repository$: Observable<IRepository>;
 
   constructor(
-    private _store: Store<IAppState>,
-    private _route: ActivatedRoute
+    private store: Store,
+    // private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this._store.dispatch(new GetRepository(this._route.snapshot.params.id));
+    // this._store.dispatch(new GetRepository(this._route.snapshot.params.id));
   }
 
+  initializeValues(): void {
+    this.repository$ = this.store.pipe(select(repositorySelector));
+  }
 }

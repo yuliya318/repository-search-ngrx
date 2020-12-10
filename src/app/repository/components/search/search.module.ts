@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchComponent } from './search.component';
-import { GithubLogoModule } from '../github-logo/github-logo.module';
+import { GithubLogoModule } from '../../../shared/modules/github-logo/github-logo.module';
 
 
 

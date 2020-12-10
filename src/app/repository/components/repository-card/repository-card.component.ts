@@ -6,6 +6,7 @@ import { IRepository } from '../../../shared/interfaces/repository.interface';
   templateUrl: './repository-card.component.html',
   styleUrls: ['./repository-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // is it necessary??
 })
 export class RepositoryCardComponent implements OnInit {
   @Input() repository: IRepository;

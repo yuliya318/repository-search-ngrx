@@ -1,4 +1,4 @@
-import { IRepositoryOwner } from './repository-owner.interface';
+import { IRepositoryOwner } from './repositoryOwner.interface';
 
 export interface IRepository {
     id: number;

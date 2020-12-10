@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IRepository } from '../../../shared/interfaces/repository.interface';
-import { IAppState } from '../../../store/state/app.state';
-import { selectRepositoriesList } from '../../../store/selectors/repository.selector';
-import { GetRepositories } from '../../../store/actions/repository.actions';
+import { GetRepositoriesAction } from '../../store/repository.actions';
+import { repositoriesSelector } from '../../store/repository.selectors';
+import { IRepositoriesList } from '../../interfaces/repositoriesList.interface';
 
 @Component({
   selector: 'app-search-page',
@@ -13,22 +11,24 @@ import { GetRepositories } from '../../../store/actions/repository.actions';
   styleUrls: ['./search-page.component.scss'],
 })
 export class SearchPageComponent implements OnInit {
-  public repositories$: Observable<IRepository[]> = this._store.pipe(
-    select(selectRepositoriesList)
-  );
+  public repositories$: Observable<IRepositoriesList>;
 
   public orderValue: string;
   public reverse = false;
 
-  constructor(private _store: Store<IAppState>, private _router: Router) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.repositories$ = this._store.pipe(select(selectRepositoriesList));
+    this.initializeValues();
   }
 
-  getRepositoriesList(searchValue: any): void {
+  initializeValues(): void {
+    this.repositories$ = this.store.pipe(select(repositoriesSelector));
+  }
+
+  getRepositoriesList(searchValue: string): void {
     if (searchValue) {
-      this._store.dispatch(new GetRepositories(searchValue));
+      this.store.dispatch(GetRepositoriesAction({ searchValue }));
     } else {
       this.orderValue = '';
     }
