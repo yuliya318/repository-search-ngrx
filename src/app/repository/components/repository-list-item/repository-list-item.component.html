@@ -10,7 +10,7 @@
     <div [routerLink]="[ '/repository/', repository.id ]">
         <div class="d-flex">
             <p>{{ repository.owner.login }} /</p>
-            <p class="font-weight-bold"> {{ repository.name }}</p>
+            <p class="font-weight-bold">&nbsp; {{ repository.name }}</p>
         </div>
         <p class="lightgrey-text">Updated at {{ repository.updated_at | date }}</p>
     </div>

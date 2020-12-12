@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { IRepositoriesList } from '../interfaces/repositoriesList.interface';
 import { IRepository } from '../../shared/interfaces/repository.interface';
 
 export enum ERepositoryActions {
@@ -16,7 +15,7 @@ export const GetRepositoriesAction = createAction(
 
 export const GetRepositoriesSuccessAction = createAction(
   ERepositoryActions.GetRepositoriesSuccess,
-  props<{ repositoriesList: IRepositoriesList }>()
+  props<{ repositoriesList: IRepository[] }>()
 );
 
 export const GetRepositoryAction = createAction(

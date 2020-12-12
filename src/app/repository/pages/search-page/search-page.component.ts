@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { GetRepositoriesAction } from '../../store/repository.actions';
 import { repositoriesSelector } from '../../store/repository.selectors';
-import { IRepositoriesList } from '../../interfaces/repositoriesList.interface';
+import { IRepository } from '../../../shared/interfaces/repository.interface';
 
 @Component({
   selector: 'app-search-page',
@@ -11,7 +11,7 @@ import { IRepositoriesList } from '../../interfaces/repositoriesList.interface';
   styleUrls: ['./search-page.component.scss'],
 })
 export class SearchPageComponent implements OnInit {
-  public repositories$: Observable<IRepositoriesList>;
+  public repositories$: Observable<IRepository[]>;
 
   public orderValue: string;
   public reverse = false;

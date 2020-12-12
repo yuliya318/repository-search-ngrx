@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { IRepositoryState } from '../interfaces/repositoryState.interface';
-import { GetRepositoriesAction, GetRepositoriesSuccessAction, GetRepositorySuccessAction } from './repository.actions';
+import { GetRepositoriesSuccessAction, GetRepositorySuccessAction } from './repository.actions';
 
 const initialState: IRepositoryState = {
   repositories: null,
