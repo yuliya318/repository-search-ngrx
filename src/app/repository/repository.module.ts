@@ -7,7 +7,7 @@ import { SearchModule } from './components/search/search.module';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { Routes, RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './store/repository.reducers';
+import { reducer, repositoryFeatureKey } from './store/repository.reducers';
 import { RepositoryService } from './services/repository.service';
 import { EffectsModule } from '@ngrx/effects';
 import { RepositoriesEffect } from './store/repository.effects';
@@ -18,14 +18,17 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [SearchPageComponent, OrderByPipe],
+  declarations: [
+    SearchPageComponent,
+    OrderByPipe
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     RepositoryPageModule,
     RepositoryListItemModule,
     SearchModule,
-    StoreModule.forFeature('repository', reducers),
+    StoreModule.forFeature(repositoryFeatureKey, reducer),
     EffectsModule.forFeature([RepositoriesEffect])
   ],
   providers: [RepositoryService],

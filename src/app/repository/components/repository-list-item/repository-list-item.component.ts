@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { IRepository } from '../../../shared/interfaces/repository.interface';
 
 @Component({
@@ -9,10 +16,9 @@ import { IRepository } from '../../../shared/interfaces/repository.interface';
 })
 export class RepositoryListItemComponent implements OnInit {
   @Input() repository: IRepository;
+  @Output() selected = new EventEmitter<any>();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

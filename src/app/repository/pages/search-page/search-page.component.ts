@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { GetRepositoriesAction } from '../../store/repository.actions';
-import { repositoriesSelector } from '../../store/repository.selectors';
+import * as RepositoriesActions from '../../store/repository.actions';
+import * as RepositoriesSelectors from '../../store/repository.selectors';
 import { IRepository } from '../../../shared/interfaces/repository.interface';
 
 @Component({
@@ -19,16 +19,16 @@ export class SearchPageComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.initializeValues();
+    this.repositories$ = this.store.pipe(select(RepositoriesSelectors.selectRepositoriesList));
   }
 
-  initializeValues(): void {
-    this.repositories$ = this.store.pipe(select(repositoriesSelector));
+  trackByFn(index, item): number {
+    return item.id;
   }
 
   getRepositoriesList(searchValue: string): void {
     if (searchValue) {
-      this.store.dispatch(GetRepositoriesAction({ searchValue }));
+      this.store.dispatch(RepositoriesActions.loadRepositories({ searchValue }));
     } else {
       this.orderValue = '';
     }
@@ -41,7 +41,7 @@ export class SearchPageComponent implements OnInit {
     this.orderValue = value.toLowerCase();
   }
 
-  trackByFn(index, item): number {
-    return item.id;
+  selectCurrrentRepositoryId(id: number): void {
+    // this.store.dispatch(RepositoriesActions.selectCurrentRepositoryId({ id }));
   }
 }

@@ -1,30 +1,37 @@
-import { createReducer, on, Action } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
+import { IRepository } from 'src/app/shared/interfaces/repository.interface';
 import { IRepositoryState } from '../interfaces/repositoryState.interface';
-import { GetRepositoriesSuccessAction, GetRepositorySuccessAction } from './repository.actions';
+import * as RepositoriesActions from './repository.actions';
 
-const initialState: IRepositoryState = {
-  repositories: null,
-  repository: null,
+export const repositoryFeatureKey = 'repository';
+
+export interface State {
+  repositoriesList: IRepository[],
+  isLoading: boolean;
+}
+
+const initialState: State = {
+  repositoriesList: [],
+  isLoading: false
 };
 
-const repositoryReducer = createReducer(
+export const reducer = createReducer(
   initialState,
-  on(
-    GetRepositoriesSuccessAction,
-    (state, action): IRepositoryState => ({
+  on(RepositoriesActions.loadRepositories, (state, { searchValue }) => ({
       ...state,
-      repositories: action.repositoriesList
-    })
-  ),
-  on(
-    GetRepositorySuccessAction,
-    (state, action): IRepositoryState => ({
+      isLoading: true,
+  })),
+  on(RepositoriesActions.loadRepositoriesSuccess, (state, { repositoriesList }) => ({
       ...state,
-      repository: action.repository
-    })
-  )
+      isLoading: false,
+      repositoriesList,
+  })),
+  on(RepositoriesActions.loadRepositoriesFailure, (state, { error }) => ({
+    ...state,
+    isLoading: false,
+    error,
+  })),
 );
 
-export function reducers(state: IRepositoryState, action: Action) {
-  return repositoryReducer(state, action);
-}
+export const selectRepositoriesList = (state: State) => state.repositoriesList;
+export const selectIsLoading = (state: State) => state.isLoading;

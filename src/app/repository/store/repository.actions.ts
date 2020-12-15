@@ -1,29 +1,20 @@
 import { createAction, props } from '@ngrx/store';
 import { IRepository } from '../../shared/interfaces/repository.interface';
 
-export enum ERepositoryActions {
-  GetRepositories = '[Repository] Get Repositories',
-  GetRepositoriesSuccess = '[Repository] Get Repositories Success',
-  GetRepository = '[Repository] Get Repository',
-  GetRepositorySuccess = '[Repository] Get Repository Success',
-}
-
-export const GetRepositoriesAction = createAction(
-  ERepositoryActions.GetRepositories,
+export const loadRepositories = createAction(
+  '[Repository/API] Load Repositories',
   props<{ searchValue: string }>()
 );
-
-export const GetRepositoriesSuccessAction = createAction(
-  ERepositoryActions.GetRepositoriesSuccess,
+export const loadRepositoriesSuccess = createAction(
+  '[Repository/API] Load Repositories Success',
   props<{ repositoriesList: IRepository[] }>()
 );
-
-export const GetRepositoryAction = createAction(
-  ERepositoryActions.GetRepository,
-  props<{ repositoryID: number }>()
+export const loadRepositoriesFailure = createAction(
+  '[Repository/API] Load Repositories Failure',
+  props<{ error: any }>()
 );
 
-export const GetRepositorySuccessAction = createAction(
-  ERepositoryActions.GetRepositorySuccess,
-  props<{ repository: IRepository }>()
+export const selectCurrentRepositoryId = createAction(
+  '[Repository] Select Current Repository Id',
+  props<{ id: number | null }>()
 );
